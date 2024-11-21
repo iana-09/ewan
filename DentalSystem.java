@@ -33,7 +33,7 @@ class Patient {
 
     @Override
     public String toString() {
-        return "Patient ID: " + id + ", Name: " + name + ", Phone: " + phone + ", Email: " + email;
+        return String.format("| %-10d | %-20s | %-15s | %-25s |", id, name, phone, email);
     }
 }
 
@@ -63,8 +63,7 @@ class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment ID: " + appointmentId + ", Patient ID: " + patientId + ", Date: " + date + ", Time: " + time
-                + ", Reason: " + reason;
+        return String.format("| %-15d | %-10d | %-12s | %-8s | %-30s |", appointmentId, patientId, date, time, reason);
     }
 }
 
@@ -80,7 +79,7 @@ class Billing {
 
     @Override
     public String toString() {
-        return "Patient ID: " + patientId + ", Billing Amount: $" + amount;
+        return String.format("| %-10d | $%-10.2f |", patientId, amount);
     }
 }
 
@@ -101,7 +100,8 @@ public class DentalSystem {
             System.out.println("4. View Appointments");
             System.out.println("5. Generate Bill");
             System.out.println("6. View Bills");
-            System.out.println("7. Exit");
+            System.out.println("7. View All Data");
+            System.out.println("8. Exit");
             System.out.print("Select an option: ");
 
             int choice = scanner.nextInt();
@@ -127,6 +127,9 @@ public class DentalSystem {
                     viewBills();
                     break;
                 case 7:
+                    viewAllData();
+                    break;
+                case 8:
                     exit = true;
                     break;
                 default:
@@ -155,6 +158,8 @@ public class DentalSystem {
 
     private static void viewPatients() {
         System.out.println("\n--- List of Patients ---");
+        System.out.println("| Patient ID | Name                | Phone          | Email                      |");
+        System.out.println("|------------|---------------------|----------------|----------------------------|");
         for (Patient patient : patients) {
             System.out.println(patient);
         }
@@ -183,6 +188,8 @@ public class DentalSystem {
 
     private static void viewAppointments() {
         System.out.println("\n--- List of Appointments ---");
+        System.out.println("| Appointment ID | Patient ID | Date        | Time     | Reason                        |");
+        System.out.println("|----------------|------------|-------------|----------|-------------------------------|");
         for (Appointment appointment : appointments) {
             System.out.println(appointment);
         }
@@ -201,6 +208,33 @@ public class DentalSystem {
 
     private static void viewBills() {
         System.out.println("\n--- List of Bills ---");
+        System.out.println("| Patient ID | Billing Amount |");
+        System.out.println("|------------|----------------|");
+        for (Billing bill : bills) {
+            System.out.println(bill);
+        }
+    }
+
+    private static void viewAllData() {
+        System.out.println("\n--- All Data ---");
+
+        System.out.println("\n--- Patients ---");
+        System.out.println("| Patient ID | Name                | Phone          | Email                      |");
+        System.out.println("|------------|---------------------|----------------|----------------------------|");
+        for (Patient patient : patients) {
+            System.out.println(patient);
+        }
+
+        System.out.println("\n--- Appointments ---");
+        System.out.println("| Appointment ID | Patient ID | Date        | Time     | Reason                        |");
+        System.out.println("|----------------|------------|-------------|----------|-------------------------------|");
+        for (Appointment appointment : appointments) {
+            System.out.println(appointment);
+        }
+
+        System.out.println("\n--- Bills ---");
+        System.out.println("| Patient ID | Billing Amount |");
+        System.out.println("|------------|----------------|");
         for (Billing bill : bills) {
             System.out.println(bill);
         }
